@@ -54,7 +54,7 @@ jobs:
         run: pip3 install ansible molecule[docker] docker
 
       - name: Run Molecule tests
-        run: molecule test
+        run: cd signal && molecule test
         env:
           PY_COLORS: "1"
           ANSIBLE_FORCE_COLOR: "1"
