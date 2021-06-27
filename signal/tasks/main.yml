@@ -25,6 +25,7 @@
   args:
     executable: /bin/bash
   when: signal_cmd is failed
+  become: true
 
 - name: Add Signal repository to list of repositories
   ansible.builtin.shell: |
@@ -38,9 +39,11 @@
 - name: Update apt cache
   ansible.builtin.apt: update_cache=yes cache_valid_time=600
   when: signal_cmd is failed
+  become: true
 
 - name: Install Signal
   ansible.builtin.apt:
     name: signal-desktop
     state: present
   when: signal_cmd is failed
+  become: true
