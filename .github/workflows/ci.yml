@@ -1,0 +1,61 @@
+---
+name: CI
+"on":
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 7 * * 0"
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2.2.2
+        with:
+          python-version: "3.9"
+
+      - name: Install test dependencies
+        run: pip install --constraint=.github/workflows/constraints.txt ansible yamllint ansible-lint
+
+      - name: Lint code
+        run: |
+          yamllint .
+          ansible-lint
+
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        img:
+          - cisagov/docker-debian11-ansible:latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2.2.2
+        with:
+          python-version: "3.9"
+
+      - name: Install test dependencies
+        run: pip3 install ansible molecule[docker] docker
+
+      - name: Run Molecule tests
+        run: molecule test
+        env:
+          PY_COLORS: "1"
+          ANSIBLE_FORCE_COLOR: "1"
+          MOLECULE_IMG: ${{ matrix.img }}

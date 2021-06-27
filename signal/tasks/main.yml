@@ -1,0 +1,46 @@
+---
+- name: Check if Signal is installed
+  ansible.builtin.command: "signal-desktop"
+  register: signal_cmd
+  changed_when: false
+  ignore_errors: true
+
+- name: Create temporary dir
+  file:
+    path: "{{ signal_tmp_dir }}"
+    state: directory
+  when: signal_cmd is failed
+
+- name: Get keys file
+  ansible.builtin.get_url:
+    url: https://updates.signal.org/desktop/apt/keys.asc
+    dest: "{{ signal_tmp_dir }}/keys.asc"
+  when: signal_cmd is failed
+
+- name: Install Signal official public software signing key
+  ansible.builtin.shell: |
+    set -o pipefail
+    cat {{ signal_tmp_dir }}/keys.asc | gpg --dearmor > {{ signal_tmp_dir }}/signal-desktop-keyring.gpg
+    cat {{ signal_tmp_dir }}/signal-desktop-keyring.gpg | sudo tee -a /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
+  args:
+    executable: /bin/bash
+  when: signal_cmd is failed
+
+- name: Add Signal repository to list of repositories
+  ansible.builtin.shell: |
+    set -o pipefail
+    echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' |\
+      sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+  args:
+    executable: /bin/bash
+  when: signal_cmd is failed
+
+- name: Update apt cache
+  ansible.builtin.apt: update_cache=yes cache_valid_time=600
+  when: signal_cmd is failed
+
+- name: Install Signal
+  ansible.builtin.apt:
+    name: signal-desktop
+    state: present
+  when: signal_cmd is failed

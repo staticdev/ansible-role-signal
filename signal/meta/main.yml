@@ -1,0 +1,27 @@
+---
+galaxy_info:
+  author: staticdev
+  role_name: signal
+  description: This installs Signal messenger.
+
+  license: MIT
+
+  min_ansible_version: 2.11
+
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+        - focal
+        - groovy
+
+  galaxy_tags:
+    - signal
+    - messenger
+
+dependencies: []
