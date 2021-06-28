@@ -43,7 +43,7 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v2.3.4
         with:
-          fetch-depth: 2
+          path: "staticdev.signal"
 
       - name: Set up Python
         uses: actions/setup-python@v2.2.2
@@ -54,7 +54,7 @@ jobs:
         run: pip3 install ansible molecule[docker] docker
 
       - name: Run Molecule tests
-        run: cd signal && molecule test
+        run: molecule test
         env:
           PY_COLORS: "1"
           ANSIBLE_FORCE_COLOR: "1"

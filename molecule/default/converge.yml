@@ -19,4 +19,4 @@
         - libxshmfence1
 
   roles:
-    - signal
+    - staticdev.signal

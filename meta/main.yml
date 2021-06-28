@@ -2,7 +2,7 @@
 galaxy_info:
   author: staticdev
   role_name: signal
-  description: This installs Signal messenger.
+  description: Ansible role to install Signal messenger.
 
   license: MIT
 
