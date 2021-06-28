@@ -1,9 +1,10 @@
 ---
 - name: Check if Signal is installed
-  ansible.builtin.command: "signal-desktop"
+  ansible.builtin.command: "signal-desktop --no-sandbox"
   register: signal_cmd
   changed_when: false
   ignore_errors: true
+  failed_when: signal_cmd.rc not in [ 0, -6 ]
 
 - name: Create temporary dir
   file:
