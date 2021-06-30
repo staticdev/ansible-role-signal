@@ -44,7 +44,7 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v2.3.4
         with:
-          path: "staticdev.signal"
+          fetch-depth: 2
 
       - name: Set up Python
         uses: actions/setup-python@v2.2.2
