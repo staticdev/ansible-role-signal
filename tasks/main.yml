@@ -1,23 +1,12 @@
 ---
-- name: Create temporary dir
-  file:
-    path: "{{ signal_tmp_dir }}"
-    state: directory
+- name: Check if keyring exists
+  stat:
+    path: /usr/share/keyrings/signal-desktop-keyring.gpg
+  register: keyring_file
 
-- name: Get keys file
-  ansible.builtin.get_url:
-    url: https://updates.signal.org/desktop/apt/keys.asc
-    dest: "{{ signal_tmp_dir }}/keys.asc"
-
-- name: Install Signal official public software signing key
-  ansible.builtin.shell: |
-    set -o pipefail
-    cat {{ signal_tmp_dir }}/keys.asc | gpg --dearmor > {{ signal_tmp_dir }}/signal-desktop-keyring.gpg
-    cat {{ signal_tmp_dir }}/signal-desktop-keyring.gpg | sudo tee -a /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
-    creates=/usr/share/keyrings/signal-desktop-keyring.gpg
-  args:
-    executable: /bin/bash
-  become: true
+- name: Keyring setup
+  include_tasks: keyring-setup.yml
+  when: not keyring_file.stat.exists
 
 - name: Add Signal repository to list of repositories
   ansible.builtin.shell: |
