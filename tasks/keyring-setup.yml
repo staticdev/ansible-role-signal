@@ -3,7 +3,7 @@
   file:
     path: "{{ signal_tmp_dir }}"
     state: directory
-    mode: "0400"
+    mode: "0200"
 
 - name: Get keys file
   ansible.builtin.get_url:
