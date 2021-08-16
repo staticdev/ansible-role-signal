@@ -1,0 +1,7 @@
+*.retry
+*/__pycache__
+*.pyc
+/.python-version
+
+# Visual Studio Code
+.vscode/
