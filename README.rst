@@ -7,7 +7,7 @@ Ansible role: Signal
    :target: https://github.com/staticdev/ansible-role-signal/actions?workflow=Tests
    :alt: Tests
 
-Install `Signal`_ messenger.
+Install `Signal messenger`_.
 
 
 Requirements
@@ -52,5 +52,5 @@ Author Information
 
 `staticdev`_
 
-.. _Signal: https://signal.org
+.. _Signal messenger: https://signal.org
 .. _staticdev: https://github.com/staticdev
