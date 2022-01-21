@@ -1,13 +1,11 @@
 ---
 dependency:
   name: galaxy
-  options:
-    role-file: requirements.yml
 driver:
   name: docker
 platforms:
   - name: instance
-    image: "${MOLECULE_IMG:-cisagov/docker-debian11-ansible:latest}"
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-debian11}-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
