@@ -18,5 +18,7 @@
         - libgbm-dev
         - libxshmfence1
 
-  roles:
-    - staticdev.signal
+  tasks:
+    - name: "Include staticdev.signal"
+      include_role:
+        name: "staticdev.signal"
