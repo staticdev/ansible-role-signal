@@ -11,7 +11,7 @@ name: Tests
 
 defaults:
   run:
-    working-directory: 'staticdev.signal'
+    working-directory: "staticdev.signal"
 
 jobs:
   lint:
@@ -21,7 +21,7 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v3
         with:
-          path: 'staticdev.signal'
+          path: "staticdev.signal"
 
       - name: Set up Python
         uses: actions/setup-python@v3
@@ -51,7 +51,7 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v3
         with:
-          path: 'staticdev.signal'
+          path: "staticdev.signal"
 
       - name: Set up Python
         uses: actions/setup-python@v3

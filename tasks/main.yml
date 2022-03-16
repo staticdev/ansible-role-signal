@@ -1,6 +1,6 @@
 ---
 - name: Check if keyring exists
-  stat:
+  ansible.builtin.stat:
     path: /usr/share/keyrings/signal-desktop-keyring.gpg
   register: keyring_file
 
