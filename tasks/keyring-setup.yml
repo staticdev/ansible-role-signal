@@ -9,6 +9,7 @@
   ansible.builtin.get_url:
     url: https://updates.signal.org/desktop/apt/keys.asc
     dest: "{{ tmp_dir.path }}/keys.asc"
+    mode: "0644"
 
 - name: Install Signal official public software signing key
   ansible.builtin.shell: |
