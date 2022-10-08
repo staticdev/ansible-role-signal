@@ -5,7 +5,7 @@
   register: keyring_file
 
 - name: Keyring setup
-  include_tasks: keyring-setup.yml
+  ansible.builtin.include_tasks: keyring-setup.yml
   when: not keyring_file.stat.exists
 
 - name: Add Signal repository to list of repositories
@@ -13,12 +13,13 @@
     set -o pipefail
     echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' |\
       sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
-    creates=/etc/apt/sources.list.d/signal-xenial.list
   args:
+    creates: /etc/apt/sources.list.d/signal-xenial.list
     executable: /bin/bash
 
 - name: Update apt cache
-  ansible.builtin.apt: update_cache=yes
+  ansible.builtin.apt:
+    update_cache: true
   become: true
 
 - name: Install Signal

@@ -16,7 +16,7 @@
     set -o pipefail
     cat {{ tmp_dir.path }}/keys.asc | gpg --dearmor > {{ tmp_dir.path }}/signal-desktop-keyring.gpg
     cat {{ tmp_dir.path }}/signal-desktop-keyring.gpg | sudo tee -a /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
-    creates=/usr/share/keyrings/signal-desktop-keyring.gpg
   args:
+    creates: /usr/share/keyrings/signal-desktop-keyring.gpg
     executable: /bin/bash
   become: true
