@@ -13,12 +13,12 @@ galaxy_info:
       versions:
         - bullseye
         - buster
+
     - name: Ubuntu
       versions:
-        - xenial
-        - bionic
+        - jammy
         - focal
-        - groovy
+        - bionic
 
   galaxy_tags:
     - signal
