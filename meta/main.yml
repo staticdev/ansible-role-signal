@@ -16,9 +16,8 @@ galaxy_info:
 
     - name: Ubuntu
       versions:
-        - jammy
+        # - jammy
         - focal
-        - bionic
 
   galaxy_tags:
     - signal
