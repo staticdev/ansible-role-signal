@@ -13,11 +13,10 @@ galaxy_info:
       versions:
         - bookworm
         - bullseye
-        - buster
 
     - name: Ubuntu
       versions:
-        # - jammy
+        - jammy
         - focal
 
   galaxy_tags:
