@@ -17,13 +17,9 @@
     creates: /etc/apt/sources.list.d/signal-xenial.list
     executable: /bin/bash
 
-- name: Update apt cache
-  ansible.builtin.apt:
-    update_cache: true
-  become: true
-
 - name: Install Signal
   ansible.builtin.apt:
     name: signal-desktop
     state: present
+    update_cache: true
   become: true
